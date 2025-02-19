@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hloc-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "A CLI for the Hierarchical-Localization package"
 dependencies = ["tyro", "loguru", "hloc"]
 
