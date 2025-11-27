@@ -5,11 +5,14 @@ CLI for [HLoc](https://github.com/cvg/Hierarchical-Localization). Allows to run 
 
 ```bash
 git clone --recursive https://github.com/cvg/Hierarchical-Localization.git /path/to/hloc
+cd /path/to/hloc
+git checkout abb252080282e31147db6291206ca102c43353f7
+git submodule update --init --recursive
 pip install -e /path/to/hloc
 ```
 
 ## Usage
 
 ```bash
-hloc-cli --help
+hloc --help
 ```
