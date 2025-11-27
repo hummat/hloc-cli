@@ -9,7 +9,13 @@ from typing import Literal, Optional
 
 import pycolmap
 import tyro
-from hloc import (extract_features, match_features, pairs_from_exhaustive, pairs_from_retrieval, reconstruction)
+from hloc import (
+    extract_features,
+    match_features,
+    pairs_from_exhaustive,
+    pairs_from_retrieval,
+    reconstruction,
+)
 from loguru import logger
 
 
@@ -18,17 +24,19 @@ class CLIArgs:
     """Arguments for the HLoc CLI"""
 
     images: Path  # Path to the images to process
-    feature: Optional[Literal[
-        "superpoint_aachen",
-        "superpoint_max",
-        "superpoint_inloc",
-        "r2d2",
-        "d2net-ss",
-        "sift",
-        "sosnet",
-        "disk",
-        "aliked-n16",
-    ]] = "superpoint_aachen"  # Feature extractor config to use
+    feature: Optional[
+        Literal[
+            "superpoint_aachen",
+            "superpoint_max",
+            "superpoint_inloc",
+            "r2d2",
+            "d2net-ss",
+            "sift",
+            "sosnet",
+            "disk",
+            "aliked-n16",
+        ]
+    ] = "superpoint_aachen"  # Feature extractor config to use
     pairs: Optional[Literal["exhaustive", "retrieval"]] = (
         "retrieval"  # Pairing method to use
     )
@@ -36,21 +44,24 @@ class CLIArgs:
         "netvlad"  # Feature extractor config to use for retrieval
     )
     top_k_matches: int = 50  # Number of top matches to use in pairing from retrieval
-    matcher: Optional[Literal[
-        "superpoint+lightglue",
-        "disk+lightglue",
-        "aliked+lightglue",
-        "superglue",
-        "superglue-fast",
-        "NN-superpoint",
-        "NN-ratio",
-        "NN-mutual",
-        "adalam",
-    ]] = "superglue"  # Feature matcher config to use
+    matcher: Optional[
+        Literal[
+            "superpoint+lightglue",
+            "disk+lightglue",
+            "aliked+lightglue",
+            "superglue",
+            "superglue-fast",
+            "NN-superpoint",
+            "NN-ratio",
+            "NN-mutual",
+            "adalam",
+        ]
+    ] = "superglue"  # Feature matcher config to use
     matcher_weights: Literal["indoor", "outdoor"] = "outdoor"  # Weights for the matcher
     reconstruction: bool = True  # Run SfM reconstruction using COLMAP
-    camera_model: Literal["SIMPLE_PINHOLE", "PINHOLE", "SIMPLE_RADIAL", "RADIAL", "OPENCV",
-                          "FISHEYE"] = "OPENCV"  # Camera model to use
+    camera_model: Literal[
+        "SIMPLE_PINHOLE", "PINHOLE", "SIMPLE_RADIAL", "RADIAL", "OPENCV", "FISHEYE"
+    ] = "OPENCV"  # Camera model to use
     single_camera: bool = True  # Use the same camera for all images
     global_bundle_adjustment: bool = True  # Perform global bundle adjustment
     refine_principal_point: bool = True  # Refine the principal point
@@ -58,32 +69,42 @@ class CLIArgs:
     progress: bool = False  # Show progress bar
     verbose: bool = False  # Show verbose output
     quiet: bool = False  # Suppress all output
-    num_threads: Optional[int] = None  # Number of CPU threads to use during reconstruction
+    num_threads: Optional[int] = (
+        None  # Number of CPU threads to use during reconstruction
+    )
 
 
 def check_args(args: CLIArgs):
     if args.feature == "r2d2" and args.matcher:
         if "NN" not in args.matcher:
-            raise ValueError(f"Feature 'r2d2' only compatible with matchers: 'NN-ratio', 'NN-mutual'")
+            raise ValueError(
+                "Feature 'r2d2' only compatible with matchers: 'NN-ratio', 'NN-mutual'"
+            )
 
     if args.matcher == "superpoint+lightglue" and args.feature:
         if args.feature not in [
-                "superpoint_aachen",
-                "superpoint_max",
-                "superpoint_inloc",
+            "superpoint_aachen",
+            "superpoint_max",
+            "superpoint_inloc",
         ]:
             raise ValueError(
-                f"Matcher 'superpoint+lightglue' only compatible with features: 'superpoint_aachen', 'superpoint_max', 'superpoint_inloc'"
+                "Matcher 'superpoint+lightglue' only compatible with features: 'superpoint_aachen', 'superpoint_max', 'superpoint_inloc'"
             )
     if args.matcher == "disk+lightglue" and args.feature:
         if args.feature != "disk":
-            raise ValueError(f"Matcher 'disk+lightglue' only compatible with features: 'disk'")
+            raise ValueError(
+                "Matcher 'disk+lightglue' only compatible with features: 'disk'"
+            )
     if args.matcher == "aliked+lightglue" and args.feature:
         if args.feature != "aliked-n16":
-            raise ValueError(f"Matcher 'aliked+lightglue' only compatible with features: 'aliked-n16'")
+            raise ValueError(
+                "Matcher 'aliked+lightglue' only compatible with features: 'aliked-n16'"
+            )
     if args.matcher == "adalam" and args.feature:
         if args.feature not in ["sift", "sosnet"]:
-            raise ValueError(f"Matcher 'adalam' only compatible with features: 'sift', 'sosnet'")
+            raise ValueError(
+                "Matcher 'adalam' only compatible with features: 'sift', 'sosnet'"
+            )
 
 
 def run(args: CLIArgs):
@@ -148,7 +169,9 @@ def run(args: CLIArgs):
             matcher_conf = match_features.confs[args.matcher]
             if "weights" in matcher_conf["model"]:
                 matcher_conf["model"]["weights"] = args.matcher_weights
-                logger.info(f"Feature matching: {args.matcher} ({args.matcher_weights})")
+                logger.info(
+                    f"Feature matching: {args.matcher} ({args.matcher_weights})"
+                )
             else:
                 logger.info(f"Feature matching: {args.matcher}")
             match_features.main(
@@ -184,7 +207,9 @@ def run(args: CLIArgs):
                 options = pycolmap.BundleAdjustmentOptions()
                 pycolmap.bundle_adjustment(rec, options)
                 if args.refine_principal_point:
-                    options = pycolmap.BundleAdjustmentOptions(refine_principal_point=True)
+                    options = pycolmap.BundleAdjustmentOptions(
+                        refine_principal_point=True
+                    )
                     pycolmap.bundle_adjustment(rec, options)
                 rec.write(sfm_dir)
 
