@@ -3,12 +3,15 @@ CLI for [HLoc](https://github.com/cvg/Hierarchical-Localization). Allows to run 
 
 ## Installation
 
+**Important:** Hierarchical-Localization cannot be installed directly from git via pip because it has git submodules (like `SuperGluePretrainedNetwork`) that require `--recursive` cloning. Pip does not support recursive submodule installation from git URLs.
+
 ```bash
-# Clone and install HLoc (local clone install is necessary)
+# Install HLoc (local install required)
 git clone --recursive https://github.com/cvg/Hierarchical-Localization
 cd Hierarchical-Localization/
 pip install -e .
-# Install the CLI
+
+# Install CLI
 pip install git+https://github.com/hummat/hloc-cli.git
 ```
 
