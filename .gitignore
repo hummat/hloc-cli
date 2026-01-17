@@ -170,8 +170,3 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Agent stuff
-CLAUDE.md
-AGENTS.md
-GEMINI.md
-QWEN.md

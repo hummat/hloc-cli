@@ -1,0 +1,57 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of the bug
+      placeholder: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Run `hloc ...`
+        2. ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command Used
+      description: The exact command you ran
+      render: bash
+
+  - type: input
+    id: hloc-version
+    attributes:
+      label: hloc Version
+      placeholder: "e.g., 1.5"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Paste relevant error messages
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues to ensure this bug hasn't been reported
+          required: true
