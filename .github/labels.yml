@@ -35,3 +35,20 @@
 - name: invalid
   color: e4e669
   description: This doesn't seem right
+
+# Priority
+- name: "P0: critical"
+  color: B60205
+  description: Must do now — blocks everything
+
+- name: "P1: next"
+  color: D93F0B
+  description: Do next — high value, unblocked
+
+- name: "P2: later"
+  color: FBCA04
+  description: Planned but not urgent
+
+- name: "P3: backlog"
+  color: C2E0C6
+  description: Nice to have, no timeline

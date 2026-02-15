@@ -29,6 +29,12 @@ hloc --help
 - Type hints encouraged
 - Keep the CLI interface simple and consistent with hloc conventions
 
+## Issues & Project Board
+
+- **Issue templates**: Use the [bug report](https://github.com/hummat/hloc-cli/issues/new?template=bug_report.yml) or [feature request](https://github.com/hummat/hloc-cli/issues/new?template=feature_request.yml) form
+- **Labels**: Priority labels defined in `.github/labels.yml`
+- **Project board**: [3D Reconstruction Pipeline](https://github.com/users/hummat/projects/4) — cross-repo board covering mini-mesh, sdfstudio, and dependencies
+
 ## Pull Request Process
 
 1. **Create an issue first** for non-trivial changes

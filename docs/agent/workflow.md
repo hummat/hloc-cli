@@ -42,3 +42,18 @@ Defined in `.github/labels.yml`, synced automatically via `sync-labels.yml` work
 | `wontfix` | Won't be addressed |
 | `duplicate` | Already exists |
 | `invalid` | Not valid/applicable |
+
+### Priority
+| Label | Use for |
+|-------|---------|
+| `P0: critical` | Must do now — blocks everything |
+| `P1: next` | Do next — high value, unblocked |
+| `P2: later` | Planned but not urgent |
+| `P3: backlog` | Nice to have, no timeline |
+
+## Project Board
+
+Cross-repo project board: [3D Reconstruction Pipeline](https://github.com/users/hummat/projects/4)
+
+Covers mini-mesh, sdfstudio, and pipeline dependencies (nerfstudio, vggsfm, hloc-cli).
+All issues should be added to the project board and assigned a priority label.
